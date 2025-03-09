@@ -8,6 +8,8 @@
 #include <string>
 #include <fstream>
 #include <iomanip>
+#include <math.h>
+#include <climits>
 using namespace std;
 
 class Game {

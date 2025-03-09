@@ -39,38 +39,57 @@ void Game::prepareOutputFile()
 
 void Game::setRandom()
 {
-	cout << "Enter the input file name: ";
-	cin >> inputFileName;
-	if (inputFileName.find(".txt") == string::npos)
-		inputFileName += ".txt";
-	int N, NS, es, et, eg, eh, as, am, ad, probability, inf, inft, epl, eph,
-		ehl, ehh, ecl, ech, apl, aph, ahl, ahh, acl, ach, spl, sph, shl, shh, scl, sch;		// Variables to store values from the input file
+    cout << "Enter the input file name: ";
+    cin >> inputFileName;
 
-	fstream inputFile;
-	inputFile.open("Inputs/" + inputFileName, ios::in);
-	while (!inputFile.is_open())
-	{
-		cout << "File doesn't exist.\nEnter the input file name: ";
-		cin >> inputFileName;
-		if (inputFileName.find(".txt") == string::npos)
-			inputFileName += ".txt";
-		inputFile.open("Inputs/" + inputFileName, ios::in);
-	}
+    // Ensure the file extension is .txt
+    if (inputFileName.find(".txt") == string::npos)
+        inputFileName += ".txt";
 
-	if (inputFile.is_open())
-	{
-		inputFile >> N >> NS >> es >> et >> eg >> eh >> as >> am >> ad >> probability >> inf >> inft;									// Reading first 10 digits
-		inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ach;
-		inputFile >> spl >> sph >> shl >> shh >> scl >> sch;
-		random = new randGen(N, NS, es, et, eg, eh, as, am, ad, probability, inf, inft, epl, abs(eph),							// Take absolute to any high-value 
-			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ach), spl, abs(sph), shl, abs(shh), scl, abs(sch), this);						//	to handle the range dash '-'
-	}
-	else
-	{
-		cout << "File does not exist. Exiting...\n";
-		throw std::ios_base::failure("Failed to open file");												// File didn't open properly
-	}
+    // Ensure file path is inside "Inputs/" directory
+    string filePath = "Inputs/" + inputFileName;
+
+    // Declare variables to store file input
+    int N, NS, es, et, eg, eh, as, am, ad, probability, inf, inft;
+    int epl, eph, ehl, ehh, ecl, ech, apl, aph, ahl, ahh, acl, ach;
+    int spl, sph, shl, shh, scl, sch;
+
+    fstream inputFile;
+    inputFile.open(filePath, ios::in);
+
+    // Prompt user until a valid file is found
+    while (!inputFile.is_open())
+    {
+        cout << "File doesn't exist.\nEnter the input file name: ";
+        cin >> inputFileName;
+
+        if (inputFileName.find(".txt") == string::npos)
+            inputFileName += ".txt";
+
+        filePath = "Inputs/" + inputFileName;  // Rebuild correct file path
+        inputFile.open(filePath, ios::in);
+    }
+
+    // Read values from the file
+    if (inputFile.is_open())
+    {
+        inputFile >> N >> NS >> es >> et >> eg >> eh >> as >> am >> ad >> probability >> inf >> inft;
+        inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ach;
+        inputFile >> spl >> sph >> shl >> shh >> scl >> sch;
+
+        // Initialize random generator with read values
+        random = new randGen(N, NS, es, et, eg, eh, as, am, ad, probability, inf, inft, 
+                             epl, abs(eph), ehl, abs(ehh), ecl, abs(ech),
+                             apl, abs(aph), ahl, abs(ahh), acl, abs(ach),
+                             spl, abs(sph), shl, abs(shh), scl, abs(sch), this);
+    }
+    else
+    {
+        cout << "File does not exist. Exiting...\n";
+        throw std::ios_base::failure("Failed to open file");
+    }
 }
+
 
 void Game::updateFile(Unit* unit)
 {
@@ -160,6 +179,13 @@ void Game::updateFile(Unit* unit)
 	}
 }
 
+void pauseConsole()
+{
+    std::cout << "Press Enter to continue...";
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore previous input
+    std::cin.get(); // Wait for Enter
+}
+
 void Game::printAll()
 {
 
@@ -193,7 +219,7 @@ void Game::printAll()
 	UML.printAll();
 	cout << "]\n\n";
 
-	system("pause");
+	pauseConsole();
 	cout << endl;
 }
 

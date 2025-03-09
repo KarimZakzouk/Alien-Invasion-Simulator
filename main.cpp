@@ -1,6 +1,6 @@
-#include "Game//Game.h"
+#include "Game/Game.h"
 
-void main()
+int main()
 {
     Game game;
     game.start();
