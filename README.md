@@ -30,12 +30,7 @@ Follow these steps to set up and run the Alien Invasion Simulator:
    cd Alien-Invasion-Simulator
    ```
 
-3. **Compile the Code**:
-   ```bash
-   make
-   ```
-
-4. **Run the Program**:
+3. **Run the Program**:
    ```bash
    ./AlienInvasion
    ```
