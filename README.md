@@ -48,11 +48,6 @@ Follow these steps to set up and run the Alien Invasion Simulator:
 
 ## Additional Notes
 - **Team Context**: This project was originally a collaborative effort with my teammates, who hosted the initial version. This repository contains my personal implementation of my contributions.
-- **Feedback**: For any questions, suggestions, or feedback, please open an issue on this repository or contact me at [your-email-address] (e.g., karim.farid@example.com).
-- **Future Improvements**: I plan to add visualization of battle statistics and expand the simulation to include more complex strategies.
-
-## About Me
-I’m Karim Farid Abdelhamid, a second-year Computer Engineering student at Cairo University, Faculty of Engineering. I’m passionate about systems programming, data structures, and software development, and I’m seeking internship opportunities to apply my skills in real-world projects.
 
 ---
 
